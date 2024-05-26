@@ -16,6 +16,7 @@ export interface BarSeriesProps extends BarSeriesPartialOptions {
     data: SeriesDataItemTypeMap['Bar'][];
     markers?: SeriesMarker<Time>[];
     reactive?: boolean;
+    paneIndex?: number;
     children?: ReactNode;
 }
 

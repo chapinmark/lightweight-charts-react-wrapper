@@ -23,6 +23,7 @@ export interface AreaSeriesParams extends AreaSeriesPartialOptions {
     reactive?: boolean;
     data: SeriesDataItemTypeMap['Area'][];
     markers?: SeriesMarker<Time>[];
+    paneIndex?: number;
 }
 
 export interface BarSeriesParams extends BarSeriesPartialOptions {
@@ -30,6 +31,7 @@ export interface BarSeriesParams extends BarSeriesPartialOptions {
     reactive?: boolean;
     data: SeriesDataItemTypeMap['Bar'][];
     markers?: SeriesMarker<Time>[];
+    paneIndex?: number;
 }
 
 export interface CandlestickSeriesParams extends CandlestickSeriesPartialOptions {
@@ -37,6 +39,7 @@ export interface CandlestickSeriesParams extends CandlestickSeriesPartialOptions
     reactive?: boolean;
     data: SeriesDataItemTypeMap['Candlestick'][];
     markers?: SeriesMarker<Time>[];
+    paneIndex?: number;
 }
 
 export interface HistogramSeriesParams extends HistogramSeriesPartialOptions {
@@ -44,6 +47,7 @@ export interface HistogramSeriesParams extends HistogramSeriesPartialOptions {
     reactive?: boolean;
     data: SeriesDataItemTypeMap['Histogram'][];
     markers?: SeriesMarker<Time>[];
+    paneIndex?: number;
 }
 
 export interface LineSeriesParams extends LineSeriesPartialOptions {
@@ -51,6 +55,7 @@ export interface LineSeriesParams extends LineSeriesPartialOptions {
     reactive?: boolean;
     data: SeriesDataItemTypeMap['Line'][];
     markers?: SeriesMarker<Time>[];
+    paneIndex?: number;
 }
 
 export interface BaselineSeriesParams extends BaselineSeriesPartialOptions {
@@ -58,6 +63,7 @@ export interface BaselineSeriesParams extends BaselineSeriesPartialOptions {
     reactive?: boolean;
     data: SeriesDataItemTypeMap['Baseline'][];
     markers?: SeriesMarker<Time>[];
+    paneIndex?: number;
 }
 
 export interface CustomSeriesParams extends CustomSeriesPartialOptions {
@@ -66,6 +72,7 @@ export interface CustomSeriesParams extends CustomSeriesPartialOptions {
     view: ICustomSeriesPaneView<Time, SeriesDataItemTypeMap['Custom'], SeriesOptionsMap['Custom']>;
     data: SeriesDataItemTypeMap['Custom'][];
     markers?: SeriesMarker<Time>[];
+    paneIndex?: number;
 }
 
 export type SeriesActionParams =
@@ -87,7 +94,7 @@ export function series<T extends SeriesActionParams>(target: ChartActionResult, 
     let data = params.reactive ? params.data : null;
     let markers = params.markers ?? emptyMarkers;
     let view = params.type === 'Custom' ? params.view : null;
-
+    
     let destroyed = false;
 
     // Never use shorthand properties as default values
@@ -158,6 +165,7 @@ function createSeries<T extends SeriesActionParams>(
         case 'Area': {
             const series = chart.addAreaSeries();
             const defaults = clone(series.options());
+            if (params.paneIndex) series.moveToPane(params.paneIndex);
             series.applyOptions(omit(params));
             series.setData(params.data);
             return [series as ISeriesApi<T['type']>, defaults as SeriesOptionsMap[T['type']]];
@@ -165,6 +173,7 @@ function createSeries<T extends SeriesActionParams>(
         case 'Bar': {
             const series = chart.addBarSeries();
             const defaults = clone(series.options());
+            if (params.paneIndex) series.moveToPane(params.paneIndex);
             series.applyOptions(omit(params));
             series.setData(params.data);
             return [series as ISeriesApi<T['type']>, defaults as SeriesOptionsMap[T['type']]];
@@ -172,6 +181,7 @@ function createSeries<T extends SeriesActionParams>(
         case 'Candlestick': {
             const series = chart.addCandlestickSeries();
             const defaults = clone(series.options());
+            if (params.paneIndex) series.moveToPane(params.paneIndex);
             series.applyOptions(omit(params));
             series.setData(params.data);
             return [series as ISeriesApi<T['type']>, defaults as SeriesOptionsMap[T['type']]];
@@ -179,6 +189,7 @@ function createSeries<T extends SeriesActionParams>(
         case 'Histogram': {
             const series = chart.addHistogramSeries();
             const defaults = clone(series.options());
+            if (params.paneIndex) series.moveToPane(params.paneIndex);
             series.applyOptions(omit(params));
             series.setData(params.data);
             return [series as ISeriesApi<T['type']>, defaults as SeriesOptionsMap[T['type']]];
@@ -186,6 +197,7 @@ function createSeries<T extends SeriesActionParams>(
         case 'Line': {
             const series = chart.addLineSeries();
             const defaults = clone(series.options());
+            if (params.paneIndex) series.moveToPane(params.paneIndex);
             series.applyOptions(omit(params));
             series.setData(params.data);
             return [series as ISeriesApi<T['type']>, defaults as SeriesOptionsMap[T['type']]];
@@ -193,6 +205,7 @@ function createSeries<T extends SeriesActionParams>(
         case 'Baseline': {
             const series = chart.addBaselineSeries();
             const defaults = clone(series.options());
+            if (params.paneIndex) series.moveToPane(params.paneIndex);
             series.applyOptions(omit(params));
             series.setData(params.data);
             return [series as ISeriesApi<T['type']>, defaults as SeriesOptionsMap[T['type']]];
@@ -200,6 +213,7 @@ function createSeries<T extends SeriesActionParams>(
         case 'Custom': {
             const series = chart.addCustomSeries(params.view);
             const defaults = clone(series.options());
+            if (params.paneIndex) series.moveToPane(params.paneIndex);
             series.applyOptions(omit(params))
             series.setData(params.data);
             return [series as ISeriesApi<T['type']>, defaults as SeriesOptionsMap[T['type']]];
@@ -207,7 +221,7 @@ function createSeries<T extends SeriesActionParams>(
     }
 }
 
-function omit<T extends { reactive?: unknown; data: unknown; type: unknown; view?: unknown }>(params: T): Omit<T, 'reactive' | 'data' | 'type' | 'view'> {
-    const {reactive, data, type, view, ...rest} = params;
+function omit<T extends { reactive?: unknown; data: unknown; type: unknown; view?: unknown; paneIndex?: unknown }>(params: T): Omit<T, 'reactive' | 'data' | 'type' | 'view' | 'paneIndex'> {
+    const {reactive, data, type, view, paneIndex, ...rest} = params;
     return rest;
 }

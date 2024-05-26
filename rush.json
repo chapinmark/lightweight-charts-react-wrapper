@@ -477,9 +477,9 @@
       "packageName": "lightweight-charts-react-wrapper",
       "projectFolder": "packages/lib"
     },
-    {
-      "packageName": "demo",
-      "projectFolder": "packages/demo"
-    }
+    //{
+    //  "packageName": "demo",
+    //  "projectFolder": "packages/demo"
+    //}
   ]
 }
