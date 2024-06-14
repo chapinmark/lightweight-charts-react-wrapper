@@ -16,6 +16,7 @@ export interface LineSeriesProps extends LineSeriesPartialOptions {
     data: SeriesDataItemTypeMap['Line'][];
     markers?: SeriesMarker<Time>[];
     reactive?: boolean;
+    paneIndex?: number;
     children?: ReactNode;
 }
 

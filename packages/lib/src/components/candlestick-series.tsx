@@ -16,6 +16,7 @@ export interface CandlestickSeriesProps extends CandlestickSeriesPartialOptions 
     data: SeriesDataItemTypeMap['Candlestick'][];
     markers?: SeriesMarker<Time>[];
     reactive?: boolean;
+    paneIndex?: number;
     children?: ReactNode;
 }
 

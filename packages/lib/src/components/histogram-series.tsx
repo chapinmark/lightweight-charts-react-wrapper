@@ -16,6 +16,7 @@ export interface HistogramSeriesProps extends HistogramSeriesPartialOptions {
     data: SeriesDataItemTypeMap['Histogram'][];
     markers?: SeriesMarker<Time>[];
     reactive?: boolean;
+    paneIndex?: number;
     children?: ReactNode;
 }
 

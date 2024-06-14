@@ -16,6 +16,7 @@ export interface BaselineSeriesProps extends BaselineSeriesPartialOptions {
     data: SeriesDataItemTypeMap['Baseline'][];
     markers?: SeriesMarker<Time>[];
     reactive?: boolean;
+    paneIndex?: number;
     children?: ReactNode;
 }
 

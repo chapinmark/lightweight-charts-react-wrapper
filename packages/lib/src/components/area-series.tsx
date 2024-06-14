@@ -16,6 +16,7 @@ export interface AreaSeriesProps extends AreaSeriesPartialOptions {
     data: SeriesDataItemTypeMap['Area'][];
     markers?: SeriesMarker<Time>[];
     reactive?: boolean;
+    paneIndex?: number;
     children?: ReactNode;
 }
 

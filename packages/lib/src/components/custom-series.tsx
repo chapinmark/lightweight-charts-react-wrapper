@@ -25,6 +25,7 @@ export type CustomSeriesProps<T extends CustomSeriesOptions = CustomSeriesOption
     data: SeriesDataItemTypeMap['Custom'][];
     markers?: SeriesMarker<Time>[];
     reactive?: boolean;
+    paneIndex?: number;
     children?: ReactNode;
 }
 
